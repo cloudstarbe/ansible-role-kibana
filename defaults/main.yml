@@ -28,4 +28,4 @@ kibana_elasticsearch_ssl: false
 #kibana_elasticsearch_ssl_certificate: ""
 #kibana_elasticsearch_ssl_key: ""
 #kibana_elasticsearch_ssl_CACert: ""
-#kibana_elasticsearch_verificationMode: "none" # set to "full" to enable
+kibana_elasticsearch_verification: true

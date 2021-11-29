@@ -75,15 +75,15 @@ elasticsearch.ssl.certificate: "{{ kibana_elasticsearch_ssl_certificate }}"
 elasticsearch.ssl.key: "{{ kibana_elasticsearch_ssl_key }}"
 
 
-{% if kibana_elasticsearch_ssl_CACert %}
+{% if kibana_elasticsearch_ssl_CACert is defined %}
 # Optional setting that enables you to specify a path to the PEM file for the certificate
 # authority for your Elasticsearch instance.
 elasticsearch.ssl.certificateAuthorities: [ "{{ kibana_elasticsearch_ssl_CACert }}" ]
 
 {% endif %}
-{% if kibana_elasticsearch_verificationMode == "full" %}
+{% if kibana_elasticsearch_verification is defined and kibana_elasticsearch_verification %}
 # To disregard the validity of SSL certificates, change this setting's value to 'none'.
-#elasticsearch.ssl.verificationMode: full
+elasticsearch.ssl.verificationMode: full
 
 {% endif %}
 {% else %}
