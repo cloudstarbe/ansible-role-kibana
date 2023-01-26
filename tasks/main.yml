@@ -5,6 +5,24 @@
 - include: setup-Debian.yml
   when: ansible_os_family == 'Debian'
 
+- name: Create kibana.service.d override directory
+  file:
+    path: /etc/systemd/system/kibana.service.d/
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Copy specific Kibana Systemd override file (for pid dir)
+  ansible.builtin.template:
+    src: "override.conf.j2"
+    dest: /etc/systemd/system/kibana.service.d/override.conf
+    mode: "644"
+    force: true
+  notify:
+    - Reload systemd configuration
+    - Restart kibana
+
 - name: Ensure Kibana is started and enabled at boot.
   service:
     name: kibana
@@ -18,4 +36,4 @@
     owner: root
     group: root
     mode: 0644
-  notify: restart kibana
+  notify: Restart kibana

@@ -2,6 +2,7 @@
 kibana_version: '7.15.2'
 kibana_version_lock: true
 
+kibana_user: kibana
 kibana_package: kibana
 kibana_package_state: present
 
@@ -15,13 +16,12 @@ kibana_server_port: 5601
 kibana_server_host: "0.0.0.0"
 
 kibana_elasticsearch_url: "http://localhost:9200"
-kibana_elasticsearch_username: ""
-kibana_elasticsearch_password: ""
 
 kibana_elasticsearch_username: ""
 kibana_elasticsearch_password: ""
 
 kibana_server_ssl: false
+kibana_ssl_certificate_path: /etc/kibana/certs
 #kibana_server_ssl_certificate: ""
 #kibana_server_ssl_key: ""
 
