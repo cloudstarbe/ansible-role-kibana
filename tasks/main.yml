@@ -17,6 +17,16 @@
 
 - name: Copy specific Kibana Systemd override file (for pid dir)
   ansible.builtin.template:
+    src: "systemd/kibana.service.j2"
+    dest: "/etc/systemd/system/kibana.service"
+    mode: "644"
+    force: true
+  notify:
+    - Reload systemd configuration
+    - Restart kibana
+
+- name: Copy specific Kibana Systemd override file (for pid dir)
+  ansible.builtin.template:
     src: "systemd/override.conf.j2"
     dest: /etc/systemd/system/kibana.service.d/override.conf
     mode: "644"

@@ -17,6 +17,7 @@ kibana_server_host: "0.0.0.0"
 
 kibana_elasticsearch_url: "http://localhost:9200"
 
+kibana_elasticsearch_serviceAccountToken: ""
 kibana_elasticsearch_username: ""
 kibana_elasticsearch_password: ""
 

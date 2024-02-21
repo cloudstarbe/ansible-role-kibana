@@ -25,7 +25,7 @@ server.host: "{{ kibana_server_host }}"
 #server.name: "your-hostname"
 
 # The URL of the Elasticsearch instance to use for all your queries.
-{% if kibana_version == "6.x" %}
+{% if kibana_major_version is version('6.x', '==') %}
 elasticsearch.url: {{ kibana_elasticsearch_url }}
 {% else %}
 elasticsearch.hosts: {{ kibana_elasticsearch_url }}
@@ -47,7 +47,9 @@ elasticsearch.hosts: {{ kibana_elasticsearch_url }}
 # the username and password that the Kibana server uses to perform maintenance on the Kibana
 # index at startup. Your Kibana users still need to authenticate with Elasticsearch, which
 # is proxied through the Kibana server.
-{% if kibana_elasticsearch_username and kibana_elasticsearch_password %}
+{% if kibana_elasticsearch_serviceAccountToken is defined %}
+elasticsearch.serviceAccountToken: "{{ kibana_elasticsearch_serviceAccountToken }}"
+{% elif kibana_elasticsearch_username is defined and kibana_elasticsearch_password is defined and kibana_elasticsearch_serviceAccountToken is not defined %}
 elasticsearch.username: "{{ kibana_elasticsearch_username }}"
 elasticsearch.password: "{{ kibana_elasticsearch_password }}"
 {% else %}
@@ -124,6 +126,15 @@ elasticsearch.ssl.verificationMode: full
 
 # Enables you specify a file where Kibana stores log output.
 #logging.dest: stdout
+{% if kibana_major_version is version('8.x', '>=') %}
+logging:
+  appenders:
+    file:
+      type: file
+      fileName: /var/log/kibana/kibana.log
+      layout:
+        type: json
+{% endif %}
 
 # Set the value of this setting to true to suppress all logging output.
 #logging.silent: false

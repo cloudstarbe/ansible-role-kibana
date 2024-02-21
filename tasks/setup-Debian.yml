@@ -1,8 +1,8 @@
 ---
 - name: Get Kibana Major Version
-  ansible.builtin.set_fact: "kibana_major_version={{ es_version.split('.')[0] }}.x"
+  ansible.builtin.set_fact: "kibana_major_version={{ kibana_version.split('.')[0] }}.x"
   when:
-      - es_major_version is undefined
+      - kibana_major_version is undefined
 
 - name: Ensure dependencies are installed.
   ansible.builtin.apt:
